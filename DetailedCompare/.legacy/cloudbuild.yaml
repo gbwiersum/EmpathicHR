@@ -1,0 +1,19 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+            'build', '-t', 'detailedcompare',
+            '-f', './DetailedCompare/Dockerfile',
+            '--cache-from', 'gcr.io/$PROJECT_ID/detailedcompare',
+            '.'
+        ]
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag' , 'detailedcompare', 'gcr.io/human-free-hr/detailedcompare']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/human-free-hr/detailedcompare']
+
+images: ['gcr.io/human-free-hr/detailedcompare']
+
+options:
+  logging: CLOUD_LOGGING_ONLY
